@@ -19,24 +19,30 @@ namespace Game_X_O
         public void Turn()
         {
             Search();
-            area.Drow();
+            //area.Drow();
         }
 
         public void Search()
         {
+            bool set_O = false;
             for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 3; j++)
                 {
                     if(area.field_coordinats[i, j] == '*')
                     {
-                        area.field_coordinats[i, j] = playerO;
+                       // area.field_coordinats[i, j] = playerO;
                         area.Set(i,j,playerO);
+                        set_O= true;
                         break;
-                    }                    
+                    }
+                    if (set_O)
+                        break;
+                   
                 }
-                break;
-            }  
+                if (set_O)
+                    break;
+            }
         }
 
     }

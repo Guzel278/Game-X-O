@@ -11,10 +11,6 @@ namespace Game_X_O
         public const char playerX = 'X';
         private readonly Area area;
 
-        public HPlayer()
-        {
-        }
-
         public HPlayer(Area area)
         {
             this.area = area ?? throw new ArgumentNullException(nameof(area));
@@ -27,14 +23,17 @@ namespace Game_X_O
             int y = int.Parse(Console.ReadLine());
             if (Validate(x-1, y-1))
                 area.Set(x-1, y-1, playerX);
-            else 
-                throw new ArgumentException("please enter other coordinates");
-
+            else
+            {
+                Console.WriteLine("please enter other coordinates");
+                Turn();
+            }
+               
         }
 
         public bool Validate(int x, int y)
         {
-            if (x < 0 || x > 2 || y < 0 || y > 2)
+            if (x < 0 || x > 3 || y < 0 || y > 3)
                 return false;
             else if (area.field_coordinats[x,y] != '*')
                return false;
