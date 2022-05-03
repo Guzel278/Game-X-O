@@ -17,28 +17,33 @@ namespace Game_X_O
         }
         public void Turn()
         {
-            Console.WriteLine("enter the x coordinate for the step");
-            int x = int.Parse(Console.ReadLine());
-            Console.WriteLine("enter the y coordinate for the step");
-            int y = int.Parse(Console.ReadLine());
-            if (Validate(x-1, y-1))
-                area.Set(x-1, y-1, playerX);
-            else
+            int x;
+            int y;
+            bool validate = false;           
+            while (!validate)
             {
-                Console.WriteLine("please enter other coordinates");
-                Turn();
-            }
-               
+                Console.WriteLine("enter the x, y coordinate for the step");
+                string str = Console.ReadLine();
+                string[] v = str.Split(new char[] { ',' });
+                if (int.TryParse(v[0], out x) && int.TryParse(v[1], out y))
+                {
+                    if (Validate(x-1, y-1))
+                    {
+                        area.Set(x - 1, y - 1, playerX);
+                        validate = true;
+                    }
+                }
+            }                                                
         }
 
         public bool Validate(int x, int y)
-        {
-            if (x < 0 || x > 3 || y < 0 || y > 3)
-                return false;
-            else if (area.field_coordinats[x,y] != '*')
-               return false;
-            else
-                return true;
+        {          
+                if (x < 0 || x > 3 || y < 0 || y > 3)
+                    return false;
+                else if (area.f[x, y] != '*')
+                    return false;
+                else
+                    return true;
         }
 
 

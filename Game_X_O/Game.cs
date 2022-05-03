@@ -11,14 +11,14 @@ namespace Game_X_O
         public void DoGame()
         {           
             Area area = new Area();
-            area.Drow();
+            area.Draw();
             HPlayer hPlayer = new HPlayer(area);
             CPlayer cPlayer = new CPlayer(area);
-            while(CheckContinue(area))
+            while(CheckContinue(area) && CheckWin(area) == '*' )
             {
                 hPlayer.Turn();
                 cPlayer.Turn();
-                area.Drow();                         
+                area.Draw();                         
             }
             char chckWin = CheckWin(area);
             if (chckWin == 'X')
@@ -37,7 +37,7 @@ namespace Game_X_O
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    if (area.field_coordinats[i, j] == '*')
+                    if (area.f[i, j] == '*')
                     {                       
                        found = true;
                        return true;
@@ -51,21 +51,22 @@ namespace Game_X_O
             return false;
         }
         public char CheckWin(Area area)
-        {      
+        {
+            var f = area.f;
             for (int i = 0, j = 0; i < 3; i++)
             {
-                if (area.field_coordinats[i, j] == area.field_coordinats[i, j + 1] && area.field_coordinats[i, j] == area.field_coordinats[i, j + 2])
-                    return area.field_coordinats[i, j];          
+                if (f[i, j] == f[i, j + 1] && f[i, j] == f[i, j + 2])
+                    return area.f[i, j];          
             }
             for (int j = 0, i = 0; j < 3; j++)
             {
-                if (area.field_coordinats[i, j] == area.field_coordinats[i+1, j] && area.field_coordinats[i, j] == area.field_coordinats[i+2, j])
-                    return area.field_coordinats[i, j];
+                if (f[i, j] == f[i+1, j] && f[i, j] == f[i+2, j])
+                    return area.f[i, j];
             }
-            if (area.field_coordinats[0, 0] == area.field_coordinats[1, 1] && area.field_coordinats[0, 0] == area.field_coordinats[2, 2])
-                return area.field_coordinats[0, 0];
-            else if (area.field_coordinats[2, 0] == area.field_coordinats[1, 1] && area.field_coordinats[0, 0] == area.field_coordinats[0, 1])
-                return area.field_coordinats[2, 0];
+            if (f[0, 0] == f[1, 1] &&f[0, 0] == f[2, 2])
+                return f[0, 0];
+            else if (f[2, 0] == f[1, 1] && f[0, 0] == f[0, 1])
+                return f[2, 0];
             
             else
                 return '*';

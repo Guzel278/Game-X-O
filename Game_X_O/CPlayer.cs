@@ -29,7 +29,7 @@ namespace Game_X_O
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    if(area.field_coordinats[i, j] == '*')
+                    if(area.f[i, j] == '*')
                     {
                        // area.field_coordinats[i, j] = playerO;
                         area.Set(i,j,playerO);
@@ -37,8 +37,7 @@ namespace Game_X_O
                         break;
                     }
                     if (set_O)
-                        break;
-                   
+                        break;                  
                 }
                 if (set_O)
                     break;
